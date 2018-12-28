@@ -5,9 +5,9 @@ local addon, bdActionbars = ...
 ------------------------------------
 -- Configuration Callback
 ------------------------------------
-function bdActionbars:configCallback() {
+function bdActionbars:configCallback() 
 
-}
+end
 
 ------------------------------------
 -- Hide Blizzard
@@ -33,7 +33,7 @@ local function hideBlizzard()
 	}
 
 	--bring back the currency
-	hiddenFrame:SetScript("OnEvent",function()
+	hiddenFrame:SetScript("OnEvent", function()
 		TokenFrame_LoadUI()
 		TokenFrame_Update()
 		BackpackTokenFrame_Update()
