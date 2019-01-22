@@ -1,5 +1,6 @@
 local addon, ab = ...
 local config = bdConfigLib:GetSave("Actionbars")
+local border = bdConfigLib:GetSave("bdAddons").border or 2
 
 bdCore:makeMovable(ab.petbar)
 
@@ -19,7 +20,6 @@ function ab.petbar:Update()
 	
 	for i = 1, NUM_PET_ACTION_SLOTS do
 		local Button = _G["PetActionButton"..i]
-		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetParent(ab.petbar)

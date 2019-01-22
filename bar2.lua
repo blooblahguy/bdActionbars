@@ -1,5 +1,6 @@
 local addon, ab = ...
 local config = bdConfigLib:GetSave("Actionbars")
+local border = bdConfigLib:GetSave("bdAddons").border or 2
 
 bdCore:makeMovable(ab.bar2)
 
@@ -16,7 +17,6 @@ function ab.bar2:Update()
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
 		local Button = _G["MultiBarBottomLeftButton"..i]
-		local border = bdCore.config.persistent['General'].border
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
 		Button:SetFrameStrata("BACKGROUND")

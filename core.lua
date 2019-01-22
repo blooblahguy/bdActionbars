@@ -28,6 +28,7 @@ ab.ranged = CreateFrame("frame", nil, UIParent)
 ab.ranged:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
 
 local config = bdConfigLib:GetSave("Actionbars")
+local borderSize = bdConfigLib:GetSave("bdAddons").border or 2
 
 function ab:UpdateAll()
 	ab.bar1:Update()
@@ -338,11 +339,10 @@ end
 
 function ab:Size(frame, group, num)
 	if (InCombatLockdown()) then return end
-	local border = bdCore.config.persistent['General'].border
 	local rows = math.floor(num/config[group])
 
-	local height = (config.buttonsize+border+config.buttonspacing)*(num/rows)-config.buttonspacing-border
-	local width = (config.buttonsize+border+config.buttonspacing)*(rows)-config.buttonspacing-border
+	local height = (config.buttonsize+borderSize+config.buttonspacing)*(num/rows)-config.buttonspacing-borderSize
+	local width = (config.buttonsize+borderSize+config.buttonspacing)*(rows)-config.buttonspacing-borderSize
 	frame:SetSize(width, height)
 	--frame.moveContainer:Size(width+4, height+4)
 end
