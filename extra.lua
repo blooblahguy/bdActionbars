@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config["Actionbars"]
+local config = bdConfigLib:GetSave("Actionbars")
 
 ab.extra:SetPoint("LEFT", UIParent, "LEFT", 20, 0)
 ab.extra:SetSize(180, 100)

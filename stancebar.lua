@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config.profile['Actionbars']
+local config = bdConfigLib:GetSave("Actionbars")
 
 if (bdCore.isLegion) then return end
 
@@ -16,7 +16,6 @@ StanceBarRight:Hide()
 StanceBarRight.Show = nil
 
 function ab.stancebar:Update()
-	config = bdCore.config.profile['Actionbars']
 	local num = GetNumShapeshiftForms()
 	local rows = math.floor(num/config.stancebarrows)
 	local index = 1

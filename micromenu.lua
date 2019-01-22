@@ -1,5 +1,5 @@
 local addon, bdAB = ...
-local config = bdCore.config.profile["Actionbars"]
+local config = bdConfigLib:GetSave("Actionbars")
 
 local microButtons = {
 	"CharacterMicroButton"

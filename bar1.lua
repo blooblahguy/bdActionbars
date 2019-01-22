@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config.profile['Actionbars']
+local config = bdConfigLib:GetSave("Actionbars")
 
 bdCore:makeMovable(ab.bar1)
 
@@ -59,7 +59,6 @@ updateDriver()
 function ab.bar1:Update()
 	self:SetFrameStrata("MEDIUM")
 
-	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar1rows)
 	local index = 1
 	local lastrow = ActionButton1

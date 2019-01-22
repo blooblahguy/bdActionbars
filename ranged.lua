@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config.profile['Actionbars']
+local config = bdConfigLib:GetSave("Actionbars")
 
 function ab.ranged:OnUpdate(elapsed)
 	if (not self.rangeTimer) then

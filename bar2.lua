@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config.profile['Actionbars']
+local config = bdConfigLib:GetSave("Actionbars")
 
 bdCore:makeMovable(ab.bar2)
 
@@ -8,7 +8,6 @@ MultiBarBottomLeft:SetScript("OnHide", function() ab.bar2:Hide() end)
 MultiBarBottomLeft:SetScript("OnShow", function() ab.bar2:Show() end)
 
 function ab.bar2:Update()
-	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_ACTIONBAR_BUTTONS/config.bar2rows)
 	local index = 1
 	local lastrow = MultiBarBottomLeftButton1

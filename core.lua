@@ -27,7 +27,7 @@ ab.extra:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
 ab.ranged = CreateFrame("frame", nil, UIParent)
 ab.ranged:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
 
-local config = bdCore.config.profile["Actionbars"]
+local config = bdConfigLib:GetSave("Actionbars")
 
 function ab:UpdateAll()
 	ab.bar1:Update()
@@ -46,7 +46,6 @@ end
 bdCore:hookEvent("bd_reconfig",function() ab:UpdateAll() end)
 
 function ab:UpdateHotkeys()
-	config = bdCore.config.profile["Actionbars"]
 	local hotkey = _G[self:GetName() .. "HotKey"]
 	local text = hotkey:GetText()
 	if (not text) then return end
@@ -88,7 +87,6 @@ function ab:UpdateHotkeys()
 end
 
 function ab:styleFlyout()
-	config = bdCore.config.profile["Actionbars"]
 	if (self.FlyoutArrow and not InCombatLockdown()) then	
 		
 		local FlyoutButtons = 0
@@ -138,7 +136,6 @@ hooksecurefunc("ActionButton_UpdateHotkeys", ab.UpdateHotkeys)
 hooksecurefunc("PetActionButton_SetHotkeys", ab.UpdateHotkeys)
 
 function ab:skinButton(frame,bar,parent)
-	config = bdCore.config.profile["Actionbars"]
 
 	local name = frame:GetName()
 	local button = frame

@@ -1,5 +1,5 @@
 local addon, ab = ...
-local config = bdCore.config.profile['Actionbars']
+local config = bdConfigLib:GetSave("Actionbars")
 
 bdCore:makeMovable(ab.petbar)
 
@@ -11,7 +11,6 @@ PetActionBarFrame:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 34)
 PetActionBarFrame:EnableMouse(false)
 
 function ab.petbar:Update()
-	config = bdCore.config.profile['Actionbars']
 	local rows = math.floor(NUM_PET_ACTION_SLOTS/config.stancebarrows)
 	local index = 1
 	local lastrow = PetActionButton1
