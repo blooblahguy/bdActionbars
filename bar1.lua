@@ -97,7 +97,7 @@ ab.bar1:RegisterEvent("CURRENCY_DISPLAY_UPDATE")
 ab.bar1:RegisterEvent("BAG_UPDATE")
 ab.bar1:SetScript("OnEvent", function(self, event, unit, ...)
 	if (event == "ACTIVE_TALENT_GROUP_CHANGED") then
-		-- print(event)
+		print(event)
 		updateDriver()
 	elseif (event == "PLAYER_ENTERING_WORLD") then
 		

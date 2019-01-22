@@ -1,4 +1,4 @@
-## Interface: 80100
+## Interface: 80000
 ## Title: |cffA02C2Fbd|rActionbars
 ## Version: 0
 ## DefaultState: Enabled
@@ -6,14 +6,16 @@
 ## Dependencies: bdCore
 
 init.lua
-functions.lua
 core.lua
-
-modules\bar1.lua
-modules\bar2345.lua
-modules\stancebar.lua
-modules\petbar.lua
-modules\micromenu.lua
-modules\powerbar.lua
-modules\extra.lua
-modules\bindings.lua
+bar1.lua
+bar2.lua
+bar3.lua
+bar4.lua
+bar5.lua
+petbar.lua
+stancebar.lua
+vehicle.lua
+ranged.lua
+extra.lua
+bindings.lua
+micromenu.lua
