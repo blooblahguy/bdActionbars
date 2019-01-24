@@ -315,5 +315,5 @@ defaults[#defaults+1] = {petbarhidemo = {
 
 local config = bdConfigLib:RegisterModule({
 	name = "Actionbars"
-}, defaults, BD_persistent)
+}, defaults, "BD_persistent")
 local bordersize = bdConfigLib:GetSave('bdAddons').border or 2
