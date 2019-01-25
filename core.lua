@@ -1,31 +1,48 @@
 local addon, ab = ...
 
+local height = select(2, GetPhysicalScreenSize())
+local scale = 768 / height;
+
+-- local bdparent = CreateFrame("frame", nil, UIParent)
+-- bdparent:SetAllPoints(true)
+-- bdparent:SetScale(scale)
+
+
 ab.bar1 = CreateFrame("frame", "bdActionbar 1", UIParent, "SecureHandlerStateTemplate")
 ab.bar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 30)
+-- ab.bar1:SetScale(scale)
 
 ab.bar2 = CreateFrame("frame", "bdActionbar 2", UIParent, "SecureHandlerStateTemplate")
 ab.bar2:SetPoint("BOTTOM", UIParent, "BOTTOM", -220, 30)
+-- ab.bar2:SetScale(scale)
 
 ab.bar3 = CreateFrame("frame", "bdActionbar 3", UIParent, "SecureHandlerStateTemplate")
 ab.bar3:SetPoint("BOTTOM", UIParent, "BOTTOM", 220, 30)
+-- ab.bar3:SetScale(scale)
 
 ab.bar4 = CreateFrame("frame", "bdActionbar 4", UIParent, "SecureHandlerStateTemplate")
 ab.bar4:SetPoint("RIGHT", UIParent, "RIGHT", -20, 0)
+-- ab.bar4:SetScale(scale)
 
 ab.bar5 = CreateFrame("frame", "bdActionbar 5", UIParent, "SecureHandlerStateTemplate")
 ab.bar5:SetPoint("RIGHT", UIParent, "RIGHT", -70, 0)
+-- ab.bar5:SetScale(scale)
 
 ab.petbar = CreateFrame("frame", "bdPetActionbar", UIParent, "SecureHandlerStateTemplate")
 ab.petbar:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 120)
+-- ab.petbar:SetScale(scale)
 
 ab.stancebar = CreateFrame("frame", "bdStancebar", UIParent, "SecureHandlerStateTemplate")
 ab.stancebar:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 20, -220)
+-- ab.stancebar:SetScale(scale)
 
 ab.extra = CreateFrame("frame", "bdExtraActionButton", UIParent)
 ab.extra:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+-- ab.extra:SetScale(scale)
 
 ab.ranged = CreateFrame("frame", nil, UIParent)
 ab.ranged:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
+-- ab.ranged:SetScale(scale)
 
 local config = bdConfigLib:GetSave("Actionbars")
 local borderSize = bdConfigLib:GetSave("bdAddons").border or 2
@@ -137,7 +154,6 @@ hooksecurefunc("ActionButton_UpdateHotkeys", ab.UpdateHotkeys)
 hooksecurefunc("PetActionButton_SetHotkeys", ab.UpdateHotkeys)
 
 function ab:skinButton(frame,bar,parent)
-
 	local name = frame:GetName()
 	local button = frame
 	local icon = _G[name.."Icon"]

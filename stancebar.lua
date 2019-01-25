@@ -25,6 +25,7 @@ function ab.stancebar:Update()
 	ab:Size(ab.stancebar,'stancebarrows',num)
 	
 	for i = 1, NUM_STANCE_SLOTS do
+		if (InCombatLockdown()) then return end
 		local Button = _G["StanceButton"..i]
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()

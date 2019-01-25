@@ -67,6 +67,7 @@ function ab.bar1:Update()
 	ab:Size(ab.bar1,'bar1rows',NUM_ACTIONBAR_BUTTONS)
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
+		if (InCombatLockdown()) then return end
 		local Button = _G["ActionButton"..i]
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()

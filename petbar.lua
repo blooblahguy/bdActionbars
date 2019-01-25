@@ -19,6 +19,7 @@ function ab.petbar:Update()
 	ab:Size(ab.petbar,'petbarrows',NUM_PET_ACTION_SLOTS)
 	
 	for i = 1, NUM_PET_ACTION_SLOTS do
+		if (InCombatLockdown()) then return end
 		local Button = _G["PetActionButton"..i]
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()

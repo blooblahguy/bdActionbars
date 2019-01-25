@@ -16,6 +16,7 @@ function ab.bar2:Update()
 	ab:Size(ab.bar2,'bar2rows',NUM_ACTIONBAR_BUTTONS)
 	
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
+		if (InCombatLockdown()) then return end
 		local Button = _G["MultiBarBottomLeftButton"..i]
 		Button:SetSize(config.buttonsize,config.buttonsize)
 		Button:ClearAllPoints()
