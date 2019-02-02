@@ -7,7 +7,6 @@ local scale = 768 / height;
 -- bdparent:SetAllPoints(true)
 -- bdparent:SetScale(scale)
 
-
 ab.bar1 = CreateFrame("frame", "bdActionbar 1", UIParent, "SecureHandlerStateTemplate")
 ab.bar1:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 30)
 -- ab.bar1:SetScale(scale)
