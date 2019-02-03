@@ -44,7 +44,7 @@ ab.ranged:SetPoint("BOTTOM", UIParent, "BOTTOM", 0, 220)
 -- ab.ranged:SetScale(scale)
 
 local config = bdConfigLib:GetSave("Actionbars")
-local borderSize = bdConfigLib:GetSave("bdAddons").border or 2
+local borderSize = bdConfigLib:GetSave("bdAddons").border
 
 function ab:UpdateAll()
 	ab.bar1:Update()
