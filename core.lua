@@ -54,7 +54,8 @@ end
 function a:LayoutBar(frame, buttonList, cfg)
 	-- config
 	local scale = c[cfg.cfg.."_scale"] or 1
-	local spacing = (c[cfg.cfg.."_spacing"] + c.border) * scale
+	local spacing = c[cfg.cfg.."_spacing"] or 0
+	spacing = spacing + c.border
 	local width = c[cfg.cfg.."_size"] * scale
 	local height = c[cfg.cfg.."_size"] * scale
 	if (cfg.widthScale) then

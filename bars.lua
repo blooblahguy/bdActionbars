@@ -131,7 +131,7 @@ local defaultPadding = 20
 -- MicroMenu
 --===============================================================
 	cfg = {}
-	cfg.cfg = "micromenu"
+	cfg.cfg = "microbar"
 	cfg.frameName = "bdActionbars_MicroMenuBar"
 	cfg.frameVisibility = "[petbattle] hide; show"
 	cfg.frameSpawn = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -defaultPadding, defaultPadding}
