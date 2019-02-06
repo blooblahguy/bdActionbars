@@ -528,6 +528,7 @@ bdActionbars[2].border = bdConfigLib:GetSave("bdAddons").border
 
 bdActionbars[3] = {} -- variables
 bdActionbars[3].hidden = CreateFrame("Frame")
+bdActionbars[3].hidden:Hide()
 bdActionbars[3].callbacks = {}
 
 bdActionbars[3].font = CreateFont("BDA_FONT")
