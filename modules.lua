@@ -3,15 +3,6 @@ local a, c, v = select(2, ...):unpack()
 --===================================================
 -- Range Display
 --===================================================
-local total = 0
-local throttle = 0.1
-local function RangedOnUpdate(self, elapsed)
-	total = total + elapsed
-	if (total >= throttle) then
-		RangedUpdate(self)
-	end
-end
-
 local function RangedUpdate(self)
 	local Name = self:GetName()
 	local Icon = _G[Name.."Icon"]
@@ -35,6 +26,15 @@ local function RangedUpdate(self)
 	else
 		Icon:SetVertexColor(0.3, 0.3, 0.3)
 		NormalTexture:SetVertexColor(0.3, 0.3, 0.3)
+	end
+end
+
+local total = 0
+local throttle = 0.1
+local function RangedOnUpdate(self, elapsed)
+	total = total + elapsed
+	if (total >= throttle) then
+		RangedUpdate(self)
 	end
 end
 
