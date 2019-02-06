@@ -24,9 +24,9 @@ function a:CreateBar(buttonList, cfg)
 	a:LayoutBar(frame, buttonList, cfg)
 
 	-- hook into configuration changes
-	table.insert(callbacks, function() a:LayoutBar(frame, buttonList, cfg) end)
+	table.insert(v.callbacks, function() a:LayoutBar(frame, buttonList, cfg) end)
 	if (cfg.callback) then
-		table.insert(callbacks, cfg.callback)
+		table.insert(v.callbacks, cfg.callback)
 	end
 
 	--reparent the Blizzard bar
