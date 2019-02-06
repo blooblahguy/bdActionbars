@@ -128,6 +128,7 @@ function a:SkinButton(button)
 	button:SetNormalTexture("")
 
 	if ( not flash ) then return end
+
 	flash:SetTexture("")
 	icon:SetTexCoord(.1, .9, .1, .9)
 	icon:SetDrawLayer("ARTWORK")
@@ -149,6 +150,7 @@ function a:SkinButton(button)
 	count:ClearAllPoints()
 	count:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", 0,0)
 	
+	if (not macro) then return end
 	macro:SetFontObject(v.font)
 	macro:SetTextColor(0.7,0.7,0.7)
 	macro:SetJustifyH("RIGHT")
