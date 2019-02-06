@@ -127,7 +127,7 @@ function a:SkinButton(button)
 
 	button:SetNormalTexture("")
 
-	if ( not flash ) return end
+	if ( not flash ) then return end
 	flash:SetTexture("")
 	icon:SetTexCoord(.1, .9, .1, .9)
 	icon:SetDrawLayer("ARTWORK")
