@@ -58,9 +58,9 @@ a:LayoutBar(frame, buttonList)
 	local spacing = (c[frame.cfg.."_spacing"] + c.border) * scale
 	local width = c[frame.cfg.."_size"] * scale
 	local height = c[frame.cfg.."_size"] * scale
-	if (cfg.widthScale) {
+	if (cfg.widthScale) then
 		width = width * cfg.widthScale
-	}
+	end
 	local rows = c[frame.cfg.."_rows"] or 1
 	local alpha = c[frame.cfg.."_alpha"] or 1
 	local limit = c[frame.cfg.."_buttons"] or 12
