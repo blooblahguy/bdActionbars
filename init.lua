@@ -44,7 +44,7 @@ local size_sm = 20
 		value = false,
 		label = "Show Bag Menu",
 	}})
-	tinsert(defaults, { bagsbar_size = {
+	tinsert(defaults, { bagbar_size = {
 		type = "slider",
 		min = 4,
 		max = 100,
