@@ -18,6 +18,17 @@ local defaultPadding = 20
 	local numButtons = NUM_ACTIONBAR_BUTTONS
 	local buttonList = a:GetButtonList(buttonName, numButtons)
 	local bar1 = a:CreateBar(buttonList, cfg)
+
+	-- fix the button grid for actionbar1
+	local function ToggleButtonGrid()
+		if InCombatLockdown() then return end
+		local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
+		for i, button in next, buttonList do
+			button:SetAttribute("showgrid", showgrid)
+			ActionButton_ShowGrid(button)
+		end
+	end
+	hooksecurefunc("MultiActionBar_UpdateGridVisibility", ToggleButtonGrid)
 		
 	--_onstate-page state driver
 	for i, button in next, buttonList do
@@ -98,7 +109,7 @@ local defaultPadding = 20
 	cfg.blizzardBar = PetActionBarFrame
 	cfg.frameName = "bdActionbars_PetBar"
 	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; [pet,mod] show; hide"
-	cfg.frameSpawn = {"BOTTOMRIGHT", bar, "TOPRIGHT", 0, defaultPadding}
+	cfg.frameSpawn = {"BOTTOMRIGHT", bar1, "TOPRIGHT", 0, defaultPadding}
 
 	local buttonList = a:GetButtonList("PetActionButton", NUM_PET_ACTION_SLOTS)
 	local petbar = a:CreateBar(buttonList, cfg)
@@ -111,7 +122,7 @@ local defaultPadding = 20
 	cfg.blizzardBar = StanceBarFrame
 	cfg.frameName = "bdActionbars_StanceBar"
 	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift][nomod] hide; show"
-	cfg.frameSpawn = {"BOTTOMLEFT", bar, "TOPLEFT", 0, defaultPadding}
+	cfg.frameSpawn = {"BOTTOMLEFT", bar1, "TOPLEFT", 0, defaultPadding}
 
 	local buttonList = a:GetButtonList("StanceButton", NUM_STANCE_SLOTS)
 	local stancebar = a:CreateBar(buttonList, cfg)

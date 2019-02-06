@@ -72,18 +72,6 @@ local function FixCooldownFlash(self)
 end
 hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, "SetCooldown", FixCooldownFlash)
 
--- fix the button grid for actionbar1
-local function ToggleButtonGrid()
-	if InCombatLockdown() then return end
-	local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
-	local buttonList = a:GetButtonList("ActionButton", NUM_ACTIONBAR_BUTTONS)
-	for i, button in next, buttonList do
-		button:SetAttribute("showgrid", showgrid)
-		ActionButton_ShowGrid(button)
-	end
-end
-hooksecurefunc("MultiActionBar_UpdateGridVisibility", ToggleButtonGrid)
-
 -- Hide extra textures
 StanceBarLeft:SetTexture(nil)
 StanceBarMiddle:SetTexture(nil)
