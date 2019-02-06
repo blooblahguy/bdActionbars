@@ -21,10 +21,11 @@ local size_sm = 20
 		value = 12,
 		label = "Main Font Size"
 	}})
-	tinsert(defaults, { clear = { type = "clear"}})
+	-- tinsert(defaults, { clear = { type = "clear" }})
 
 	-- micro
 	tinsert(defaults, { showMicro = {
+		type = "checkbox",
 		value = true,
 		label = "Show Micro Menu",
 	}})
@@ -39,6 +40,7 @@ local size_sm = 20
 
 	-- bagbar
 	tinsert(defaults, { showBags = {
+		type = "checkbox",
 		value = false,
 		label = "Show Bag Menu",
 	}})
@@ -53,6 +55,7 @@ local size_sm = 20
 
 	-- vehicle
 	tinsert(defaults, { showVehicle = {
+		type = "checkbox",
 		value = true,
 		label = "Show Vehicle Exit",
 	}})
@@ -67,6 +70,7 @@ local size_sm = 20
 
 	-- possess
 	tinsert(defaults, { showPossess = {
+		type = "checkbox",
 		value = true,
 		label = "Show Possess Exit",
 	}})
