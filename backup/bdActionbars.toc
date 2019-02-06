@@ -6,7 +6,16 @@
 ## Dependencies: bdCore
 
 init.lua
-functions.lua
 core.lua
-bars.lua
-modules.lua
+bar1.lua
+bar2.lua
+bar3.lua
+bar4.lua
+bar5.lua
+petbar.lua
+stancebar.lua
+vehicle.lua
+ranged.lua
+extra.lua
+bindings.lua
+micromenu.lua

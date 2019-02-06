@@ -1,319 +1,536 @@
-local addon, ab = ...
-
+local addonName, bdActionbars = ...
+--[[
+	Significat thanks and props to Zork for rActionbars and zLip functionality that makes this all way less of a nightmare
+]]
+--==================================================================================
+-- Initialize configuration
 local defaults = {}
--- god this is a mess, think of ways to make it nice
--- main config
-defaults[#defaults+1] = {stanceswitch = {
-	type = "checkbox",
-	value = false,
-	label = "Switch Bars on Stance Change",
-	tooltip = "For classes like Rogue, Warrior, and Demo lock. Change to a new bar when you change stances.",
-	callback = function() ab.bar1.UpdateBar1() end
-}}
-defaults[#defaults+1] = {microSize = {
-	type = "slider",
-	value = 50,
-	label = "Micro Menu Size",
-	step = 2,
-	min = 20,
-	max = 100,
-	callback = function() ab.MicroMenu:configCallback() end
-}}
-defaults[#defaults+1] = {microMenuEnable = {
-	type = "checkbox",
-	value = true,
-	label = "Enable display of Micro Menu.",
-	callback = function() ab.MicroMenu:configCallback() end
-}}
-defaults[#defaults+1] = {buttonsize = {
-	type = "slider",
-	value = 30,
-	label = "Button Size",
-	step = 2,
-	min = 10,
-	max = 50,
-	callback = function() ab:UpdateAll() end
-}}
-defaults[#defaults+1] = {buttonspacing = {
-	type = "slider",
-	value = 0,
-	label = "Button Spacing",
-	step = 1,
-	min = 0,
-	max = 10,
-	callback = function() ab:UpdateAll() end
-}}
-defaults[#defaults+1] = {hidehotkeys = {
-	type = "checkbox",
-	value = true,
-	label = "Hide Hotkeys",
-	tooltip = "Hide hotkeys on all bar until you mouse over each button"
-}}
+local size_md = 30
+local size_lg = 50
+local size_sm = 20
+--==================================================================================
 
--- bar1
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Bar1",
-}}
-defaults[#defaults+1] = {bar1rows= {
-	type = "slider",
-	value = 2,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar1:Update() end
-}}
-defaults[#defaults+1] = {bar1buttons= {
-	type = "slider",
-	value = 12,
-	label = "Num Buttons",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar1:Update() end
-}}
-defaults[#defaults+1] = {bar1alpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.bar1:Update() end
-}}
-defaults[#defaults+1] = {bar1hidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.bar1:Update() end
-}}
+--=========================================
+-- General
+--=========================================
+	tinsert(defaults, { font_size = {
+		type = "slider",
+		min = 1,
+		max = 30,
+		step = 1,
+		value = 12,
+		label = "Main Font Size"
+	}})
+	tinsert(defaults, { clear = { type = "clear"}}
 
--- bar2
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Bar2",
-}}
-defaults[#defaults+1] = {bar2rows = {
-	type = "slider",
-	value = 2,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar2:Update() end
-}}
-defaults[#defaults+1] = {bar2buttons= {
-	type = "slider",
-	value = 12,
-	label = "Num Buttons",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar2:Update() end
-}}
-defaults[#defaults+1] = {bar2alpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.bar2:Update() end
-}}
-defaults[#defaults+1] = {bar2hidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.bar2:Update() end
-}}
+	-- micro
+	tinsert(defaults, { showMicro = {
+		value = true,
+		label = "Show Micro Menu",
+	}})
+	tinsert(defaults, { microbar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_sm,
+		label = "Micro Menu Button Size"
+	}})
 
--- bar3
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Bar3",
-}}
-defaults[#defaults+1] = {bar3rows = {
-	type = "slider",
-	value = 2,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar3:Update() end
-}}
-defaults[#defaults+1] = {bar3buttons= {
-	type = "slider",
-	value = 12,
-	label = "Num Buttons",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar3:Update() end
-}}
-defaults[#defaults+1] = {bar3alpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.bar3:Update() end
-}}
-defaults[#defaults+1] = {bar3hidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.bar3:Update() end
-}}
+	-- bagbar
+	tinsert(defaults, { showBags = {
+		value = false,
+		label = "Show Bag Menu",
+	}})
+	tinsert(defaults, { bagsbar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_sm,
+		label = "Bags Bar Button Size"
+	}})
 
--- bar4
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Bar4",
-}}
-defaults[#defaults+1] = {bar4rows = {
-	type = "slider",
-	value = 12,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar4:Update() end
-}}
-defaults[#defaults+1] = {bar4buttons= {
-	type = "slider",
-	value = 12,
-	label = "Num Buttons",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar4:Update() end
-}}
-defaults[#defaults+1] = {bar4alpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.bar4:Update() end
-}}
-defaults[#defaults+1] = {bar4hidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.bar4:Update() end
-}}
+	-- vehicle
+	tinsert(defaults, { showVehicle = {
+		value = true,
+		label = "Show Vehicle Exit",
+	}})
+	tinsert(defaults, { vehiclebar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Vehicle Exit Size"
+	}})
 
---bar5
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Bar5",
-}}
-defaults[#defaults+1] = {bar5rows = {
-	type = "slider",
-	value = 12,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar5:Update() end
-}}
-defaults[#defaults+1] = {bar5buttons= {
-	type = "slider",
-	value = 12,
-	label = "Num Buttons",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.bar5:Update() end
-}}
-defaults[#defaults+1] = {bar5alpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.bar5:Update() end
-}}
-defaults[#defaults+1] = {bar5hidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.bar5:Update() end
-}}
+	-- possess
+	tinsert(defaults, { showPossess = {
+		value = true,
+		label = "Show Possess Exit",
+	}})
+	tinsert(defaults, { possessbar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Possess Exit Size"
+	}})
 
---stancebar
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Stance",
-}}
-defaults[#defaults+1] = {stancebarrows = {
-	type = "slider",
-	value = 1,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.stancebar:Update() end
-}}
-defaults[#defaults+1] = {stancebaralpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.stancebar:Update() end
-}}
-defaults[#defaults+1] = {stancebarhidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.stancebar:Update() end
-}}
+	-- extra
+	tinsert(defaults, { extrabar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_lg,
+		label = "Extra Button Size"
+	}})
 
---petbar
-defaults[#defaults+1] = {tab = {
-	type = "tab",
-	value = "Pet",
-}}
-defaults[#defaults+1] = {petbarrows = {
-	type = "slider",
-	value = 1,
-	label = "Num Rows",
-	step = 1,
-	min = 1,
-	max = 12,
-	callback = function() ab.petbar:Update() end
-}}
-defaults[#defaults+1] = {petbaralpha = {
-	type = "slider",
-	value = 1,
-	label = "Alpha",
-	step = 0.1,
-	min = 0,
-	max = 1,
-	callback = function() ab.petbar:Update() end
-}}
+--=========================================
+-- Main Bar
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Main Bar"
+	}})
+	tinsert(defaults, { bar1_mouseover = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { bar1_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { bar1_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { bar1_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { bar1_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { bar1_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { bar1_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 1,
+		label = "Number of Rows"
+	}})
 
-defaults[#defaults+1] = {petbarhidemo = {
-	type = "checkbox",
-	value = false,
-	label = "Hide Until Mouseover",
-	tooltip = "Hide the bar until mouseover.",
-	callback = function() ab.petbar:Update() end
-}}
+--=========================================
+-- Bar 2
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Bar 2"
+	}})
+	tinsert(defaults, { bar2_mouseover = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { bar2_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { bar2_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { bar2_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { bar2_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { bar2_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { bar2_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 1,
+		label = "Number of Rows"
+	}})
 
-local config = bdConfigLib:RegisterModule({
-	name = "Actionbars"
-}, defaults, "BD_persistent")
-local bordersize = bdConfigLib:GetSave('bdAddons').border or 2
+--=========================================
+-- Bar 3
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Bar 3"
+	}})
+	tinsert(defaults, { bar3_mouseover = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { bar3_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { bar3_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { bar3_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { bar3_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { bar3_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { bar3_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 1,
+		label = "Number of Rows"
+	}})
+
+--=========================================
+-- Bar 4
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Bar 4"
+	}})
+	tinsert(defaults, { bar4_mouseover = {
+		type = "checkbox",
+		value = true,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { bar4_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { bar4_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { bar4_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { bar4_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { bar4_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { bar4_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Rows"
+	}})
+
+--=========================================
+-- Bar 5
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Bar 5"
+	}})
+	tinsert(defaults, { bar5_mouseover = {
+		type = "checkbox",
+		value = true,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { bar5_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { bar5_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { bar5_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { bar5_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { bar5_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { bar5_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Rows"
+	}})
+
+--=========================================
+-- Stance & Pet
+--=========================================
+	tinsert(defaults, { tab = {
+		value = "Stance & Pet"
+	}})
+	-- STANCE
+	tinsert(defaults, { stancebar_mouseover = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { stancebar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_sm,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { stancebar_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { stancebar_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { stancebar_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { stancebar_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { stancebar_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 1,
+		label = "Number of Rows"
+	}})
+
+	-- PET
+	tinsert(defaults, { petbar_mouseover = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { petbar_size = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_sm,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { petbar_spacing = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { petbar_scale = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { petbar_alpha = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { petbar_buttons = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { petbar_rows = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 1,
+		label = "Number of Rows"
+	}})
+
+
+--=========================================
+-- add to config lib
+--=========================================
+	bdConfigLib:RegisterModule({
+		name = "Actionbars",
+		callback = function() a:ConfigCallback() end
+	}, defaults, "BD_persistent")
+
+--==================================================================================
+-- Core Initialization
+--==================================================================================
+bdActionbars[1] = CreateFrame("Frame", "bdActionbars Core", UIParent) -- frame
+
+bdActionbars[2] = bdConfigLib:GetSave("Actionbars") -- config
+bdActionbars[2].border = bdConfigLib:GetSave("bdAddons").border
+
+bdActionbars[3] = {} -- variables
+bdActionbars[3].hidden = CreateFrame("Frame")
+bdActionbars[3].callbacks = {}
+
+bdActionbars[3].font = CreateFont("BDA_FONT")
+bdActionbars[3].font:SetFont(bdCore.media.font, bdActionbars[2].font_size)
+bdActionbars[3].font:SetShadowColor(0, 0, 0)
+bdActionbars[3].font:SetShadowOffset(1, -1)
+
+function bdActionbars:unpack()
+	return self[1], self[2], self[3]
+end
