@@ -5,15 +5,14 @@ local a, c, v = select(2, ...):unpack()
 --===================================================
 local total = 0
 local throttle = 0.1
-local function RangedOnUpdate(elapsed)
+local function RangedOnUpdate(self, elapsed)
 	total = total + elapsed
 	if (total >= throttle) then
 		RangedUpdate(self)
 	end
 end
 
-local function RangedUpdate(frame)
-	if (not self and frame) then self = frame end
+local function RangedUpdate(self)
 	local Name = self:GetName()
 	local Icon = _G[Name.."Icon"]
 	local NormalTexture = _G[Name.."NormalTexture"]
