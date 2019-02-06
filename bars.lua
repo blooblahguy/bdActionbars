@@ -201,8 +201,8 @@ local defaultPadding = 20
 	local vehicle = a:CreateBar(buttonList, cfg)
 
 	--[canexitvehicle] is not triggered on taxi, exit workaround
-	frame:SetAttribute("_onstate-exit", [[ if CanExitVehicle() then self:Show() else self:Hide() end ]])
-	if not CanExitVehicle() then frame:Hide() end
+	vehicle:SetAttribute("_onstate-exit", [[ if CanExitVehicle() then self:Show() else self:Hide() end ]])
+	if not CanExitVehicle() then vehicle:Hide() end
 
 --===============================================================
 -- Possess Exit
