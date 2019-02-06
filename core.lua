@@ -52,7 +52,7 @@ end
 --=======================================
 -- Button Layout
 --=======================================
-a:LayoutBar(frame, buttonList)
+function a:LayoutBar(frame, buttonList)
 	-- config
 	local scale = c[frame.cfg.."_scale"] or 1
 	local spacing = (c[frame.cfg.."_spacing"] + c.border) * scale

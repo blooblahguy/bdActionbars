@@ -21,7 +21,7 @@ local size_sm = 20
 		value = 12,
 		label = "Main Font Size"
 	}})
-	tinsert(defaults, { clear = { type = "clear"}}
+	tinsert(defaults, { clear = { type = "clear"}})
 
 	-- micro
 	tinsert(defaults, { showMicro = {
