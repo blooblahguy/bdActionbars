@@ -126,6 +126,8 @@ function a:SkinButton(button)
 	local autocastable = _G[name.."AutoCastable"]
 
 	button:SetNormalTexture("")
+
+	if ( not flash ) return end
 	flash:SetTexture("")
 	icon:SetTexCoord(.1, .9, .1, .9)
 	icon:SetDrawLayer("ARTWORK")
