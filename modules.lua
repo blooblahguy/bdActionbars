@@ -88,5 +88,5 @@ function a:UpdateHotkeys(frame)
 	hotkey:SetText(text)
 end
 
-hooksecurefunc("ActionButton_UpdateHotkeys", ab.UpdateHotkeys)
-hooksecurefunc("PetActionButton_SetHotkeys", ab.UpdateHotkeys)
+hooksecurefunc("ActionButton_UpdateHotkeys", a.UpdateHotkeys)
+hooksecurefunc("PetActionButton_SetHotkeys", a.UpdateHotkeys)

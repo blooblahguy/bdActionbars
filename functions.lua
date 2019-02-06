@@ -76,6 +76,7 @@ hooksecurefunc(getmetatable(ActionButton1Cooldown).__index, "SetCooldown", FixCo
 local function ToggleButtonGrid()
 	if InCombatLockdown() then return end
 	local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
+	local buttonList = a:GetButtonList("ActionButton", NUM_ACTIONBAR_BUTTONS)
 	for i, button in next, buttonList do
 		button:SetAttribute("showgrid", showgrid)
 		ActionButton_ShowGrid(button)

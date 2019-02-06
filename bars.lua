@@ -17,7 +17,7 @@ local defaultPadding = 20
 	local buttonName = "ActionButton"
 	local numButtons = NUM_ACTIONBAR_BUTTONS
 	local buttonList = a:GetButtonList(buttonName, numButtons)
-	local bar1 = a:CreateBar(buttonList, config)
+	local bar1 = a:CreateBar(buttonList, cfg)
 		
 	--_onstate-page state driver
 	for i, button in next, buttonList do
