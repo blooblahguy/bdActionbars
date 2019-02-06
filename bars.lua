@@ -214,7 +214,7 @@ local defaultPadding = 20
 	cfg.frameVisibility = "[possessbar] show; hide"
 	cfg.frameSpawn = { "BOTTOMLEFT", bar1, "TOPRIGHT", defaultPadding, defaultPadding }
 
-	local buttonList = L:GetButtonList("PossessButton", NUM_POSSESS_SLOTS)
+	local buttonList = a:GetButtonList("PossessButton", NUM_POSSESS_SLOTS)
 	local possess = a:CreateBar(buttonList, cfg)
 
 --===============================================================
@@ -227,5 +227,5 @@ local defaultPadding = 20
 	cfg.frameVisibility = "[extrabar] show; hide"
 	cfg.frameSpawn = { "LEFT", UIParent, "LEFT", defaultPadding }
 
-	local buttonList = L:GetButtonList("ExtraActionButton", NUM_ACTIONBAR_BUTTONS)
+	local buttonList = a:GetButtonList("ExtraActionButton", NUM_ACTIONBAR_BUTTONS)
 	local extra = a:CreateBar(buttonList, cfg)
