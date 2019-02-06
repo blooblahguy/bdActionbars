@@ -16,7 +16,7 @@ end
 -- Create Bars main function
 --=======================================
 function a:CreateBar(buttonList, cfg)
-	local frame = CreateFrame("Frame", cfg.name, UIParent, "SecureHandlerStateTemplate")
+	local frame = CreateFrame("Frame", cfg.frameName, UIParent, "SecureHandlerStateTemplate")
 	frame:SetPoint(unpack(cfg.frameSpawn))
 	frame.__blizzardBar = cfg.blizzardBar
 
