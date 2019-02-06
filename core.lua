@@ -19,13 +19,12 @@ function a:CreateBar(buttonList, cfg)
 	local frame = CreateFrame("Frame", cfg.name, UIParent, "SecureHandlerStateTemplate")
 	frame:SetPoint(unpack(cfg.frameSpawn))
 	frame.__blizzardBar = cfg.blizzardBar
-	frame.cfg = cfg.cfg
 
 	-- Layout the buttons using the config options
-	a:LayoutBar(frame, buttonList)
+	a:LayoutBar(frame, buttonList, cfg)
 
 	-- hook into configuration changes
-	table.insert(callbacks, function() a:LayoutBar(frame, buttonList) end)
+	table.insert(callbacks, function() a:LayoutBar(frame, buttonList, cfg) end)
 	if (cfg.callback) then
 		table.insert(callbacks, cfg.callback)
 	end
@@ -52,19 +51,19 @@ end
 --=======================================
 -- Button Layout
 --=======================================
-function a:LayoutBar(frame, buttonList)
+function a:LayoutBar(frame, buttonList, cfg)
 	-- config
-	local scale = c[frame.cfg.."_scale"] or 1
-	local spacing = (c[frame.cfg.."_spacing"] + c.border) * scale
-	local width = c[frame.cfg.."_size"] * scale
-	local height = c[frame.cfg.."_size"] * scale
+	local scale = c[cfg.cfg.."_scale"] or 1
+	local spacing = (c[cfg.cfg.."_spacing"] + c.border) * scale
+	local width = c[cfg.cfg.."_size"] * scale
+	local height = c[cfg.cfg.."_size"] * scale
 	if (cfg.widthScale) then
 		width = width * cfg.widthScale
 	end
-	local rows = c[frame.cfg.."_rows"] or 1
-	local alpha = c[frame.cfg.."_alpha"] or 1
-	local limit = c[frame.cfg.."_buttons"] or 12
-	local mouseover = c[frame.cfg.."_mouseover"] or false
+	local rows = c[cfg.cfg.."_rows"] or 1
+	local alpha = c[cfg.cfg.."_alpha"] or 1
+	local limit = c[cfg.cfg.."_buttons"] or 12
+	local mouseover = c[cfg.cfg.."_mouseover"] or false
 
 	local num = #buttonList
 	local cols = math.floor(num / rows)
