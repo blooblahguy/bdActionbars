@@ -129,7 +129,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 			if (i == 1) then
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 				lastRow = button
-			elseif (index > cols) then
+			elseif (index > frame.cols) then
 				button:SetPoint("TOPLEFT", lastRow, "BOTTOMLEFT", 0, -frame.spacing)
 				lastRow = button
 				index = 1

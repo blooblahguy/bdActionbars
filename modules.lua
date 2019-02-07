@@ -92,7 +92,7 @@ end
 -- UPDATER FUNCTIONS
 -- Loop through / enable OnUpdater as necessary
 --=========================================
-local function UpdateButtons(elapsed) then
+local function UpdateButtons(elapsed)
 	if next(buttons) then
 		for button in pairs(buttons) do
 			UpdateButtonUsable(button)
