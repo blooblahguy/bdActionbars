@@ -31,6 +31,26 @@ updater:SetScript("OnUpdate", function(self, elapsed)
 	end
 end)
 
+-- UPDATER FUNCTIONS
+-- Loop through / enable OnUpdater as necessary
+local function UpdateButtons(elapsed)
+	if next(buttons) then
+		for button in pairs(buttons) do
+			UpdateButtonUsable(button)
+			UpdateButtonFlash(button, elapsed)
+		end
+
+		return true
+	end
+
+	return false
+end
+local function RequestUpdate()
+	if next(buttons) then
+		updater:Show()
+	end
+end
+
 --=========================================
 -- BUTTON FUNCTIONS
 --=========================================
@@ -40,7 +60,7 @@ local function UpdateButtonUsable(self, force)
 		buttonColors[self] = nil
 	end
 
-	local action = button.action
+	local action = self.action
 	local isUsable, notEnoughMana = IsUsableAction(action)
 	local colorkey = "unusable"
 	if (isUsable) then
@@ -86,28 +106,6 @@ local function UpdateButtonStatus(self)
 	end
 
 	RequestUpdate()
-end
-
---=========================================
--- UPDATER FUNCTIONS
--- Loop through / enable OnUpdater as necessary
---=========================================
-local function UpdateButtons(elapsed)
-	if next(buttons) then
-		for button in pairs(buttons) do
-			UpdateButtonUsable(button)
-			UpdateButtonFlash(button, elapsed)
-		end
-
-		return true
-	end
-
-	return false
-end
-local function RequestUpdate()
-	if next(buttons) then
-		updater:Show()
-	end
 end
 
 --=====================================================
