@@ -10,3 +10,4 @@ functions.lua
 core.lua
 bars.lua
 modules.lua
+hoverbind.lua
