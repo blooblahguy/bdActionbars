@@ -25,7 +25,7 @@ local defaultPadding = 20
 		local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
 		for i, button in next, buttonList do
 			button:SetAttribute("showgrid", showgrid)
-			ActionButton_ShowGrid(button)
+			ActionButton_ShowGrid(button, ACTION_BUTTON_SHOW_GRID_REASON_EVENT)
 		end
 	end
 	hooksecurefunc("MultiActionBar_UpdateGridVisibility", ToggleButtonGrid)
