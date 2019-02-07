@@ -11,7 +11,80 @@ local size_md = 30
 local size_lg = 50
 local size_sm = 20
 --==================================================================================
+-- since most of the bars share identical conf, let's just use a function to save space and time
+local function addBarConf(title, key, rows, mouseover)
+	rows = rows or 1
+	mouseover = mouseover or false
 
+	if (title) then
+		tinsert(defaults, { tab = {
+			type = "tab",
+			value = title
+		}})
+	end
+
+	tinsert(defaults, { [key.."_mouseover"] = {
+		type = "checkbox",
+		value = mouseover,
+		label = "Hide Until Mouseover",
+	}})
+	tinsert(defaults, { [key.."_size"] = {
+		type = "slider",
+		min = 4,
+		max = 100,
+		step = 2,
+		value = size_md,
+		label = "Button Size"
+	}})
+	tinsert(defaults, { [key.."_spacing"] = {
+		type = "slider",
+		min = 0,
+		max = 20,
+		step = 1,
+		value = 0,
+		label = "Button Spacing"
+	}})
+	tinsert(defaults, { [key.."_scale"] = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Scale"
+	}})
+	tinsert(defaults, { [key.."_alpha"] = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 1,
+		label = "Bar Alpha"
+	}})
+	tinsert(defaults, { [key.."_buttons"] = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = 12,
+		label = "Number of Buttons"
+	}})
+	tinsert(defaults, { [key.."_rows"] = {
+		type = "slider",
+		min = 1,
+		max = 12,
+		step = 1,
+		value = rows,
+		label = "Number of Rows"
+	}})
+
+	tinsert(defaults, { [key.."_hidehotkeys"] = {
+		type = "checkbox",
+		value = false,
+		label = "Hide Bar Hotkeys until Mouseover"
+	}})
+
+	
+end
 --=========================================
 -- General
 --=========================================
@@ -36,7 +109,7 @@ local size_sm = 20
 		min = 4,
 		max = 100,
 		step = 2,
-		value = size_sm,
+		value = size_md,
 		label = "Micro Menu Button Size"
 	}})
 
@@ -98,307 +171,27 @@ local size_sm = 20
 --=========================================
 -- Main Bar
 --=========================================
-	tinsert(defaults, { tab = {
-		type = "tab",
-		value = "Main Bar"
-	}})
-	tinsert(defaults, { bar1_mouseover = {
-		type = "checkbox",
-		value = false,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { bar1_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_md,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { bar1_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { bar1_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { bar1_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { bar1_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { bar1_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 1,
-		label = "Number of Rows"
-	}})
+	addBarConf("Main Bar", "bar1")
 
 --=========================================
 -- Bar 2
 --=========================================
-	tinsert(defaults, { tab = {
-		type = "tab",
-		value = "Bar 2"
-	}})
-	tinsert(defaults, { bar2_mouseover = {
-		type = "checkbox",
-		value = false,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { bar2_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_md,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { bar2_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { bar2_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { bar2_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { bar2_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { bar2_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 1,
-		label = "Number of Rows"
-	}})
+	addBarConf("Bar 2", "bar2")
 
 --=========================================
 -- Bar 3
 --=========================================
-	tinsert(defaults, { tab = {
-		type = "tab",
-		value = "Bar 3"
-	}})
-	tinsert(defaults, { bar3_mouseover = {
-		type = "checkbox",
-		value = false,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { bar3_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_md,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { bar3_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { bar3_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { bar3_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { bar3_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { bar3_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 1,
-		label = "Number of Rows"
-	}})
+	addBarConf("Bar 3", "bar3")
 
 --=========================================
 -- Bar 4
 --=========================================
-	tinsert(defaults, { tab = {
-		type = "tab",
-		value = "Bar 4"
-	}})
-	tinsert(defaults, { bar4_mouseover = {
-		type = "checkbox",
-		value = true,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { bar4_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_md,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { bar4_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { bar4_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { bar4_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { bar4_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { bar4_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Rows"
-	}})
+	addBarConf("Bar 4", "bar4", 12, true)
 
 --=========================================
 -- Bar 5
 --=========================================
-	tinsert(defaults, { tab = {
-		type = "tab",
-		value = "Bar 5"
-	}})
-	tinsert(defaults, { bar5_mouseover = {
-		type = "checkbox",
-		value = true,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { bar5_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_md,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { bar5_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { bar5_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { bar5_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { bar5_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { bar5_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Rows"
-	}})
+	addBarConf("Bar 5", "bar5", 12, true)
 
 --=========================================
 -- Stance & Pet
@@ -408,125 +201,18 @@ local size_sm = 20
 		value = "Stance & Pet"
 	}})
 	-- STANCE
-	tinsert(defaults, { clear = { type = "clear" }})
 	tinsert(defaults, { text = {
 		type = "text",
 		value = "Stance Bar"
 	}})
-	tinsert(defaults, { stancebar_mouseover = {
-		type = "checkbox",
-		value = false,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { stancebar_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_sm,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { stancebar_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { stancebar_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { stancebar_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { stancebar_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { stancebar_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 1,
-		label = "Number of Rows"
-	}})
+	addBarConf(false, "stancebar")
 
 	-- PET
-	tinsert(defaults, { clear = { type = "clear" }})
 	tinsert(defaults, { text = {
 		type = "text",
 		value = "Pet Bar"
 	}})
-	tinsert(defaults, { petbar_mouseover = {
-		type = "checkbox",
-		value = false,
-		label = "Hide Until Mouseover",
-	}})
-	tinsert(defaults, { petbar_size = {
-		type = "slider",
-		min = 4,
-		max = 100,
-		step = 2,
-		value = size_sm,
-		label = "Button Size"
-	}})
-	tinsert(defaults, { petbar_spacing = {
-		type = "slider",
-		min = 0,
-		max = 20,
-		step = 1,
-		value = 0,
-		label = "Button Spacing"
-	}})
-	tinsert(defaults, { petbar_scale = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Scale"
-	}})
-	tinsert(defaults, { petbar_alpha = {
-		type = "slider",
-		min = 0,
-		max = 1,
-		step = 0.1,
-		value = 1,
-		label = "Bar Alpha"
-	}})
-	tinsert(defaults, { petbar_buttons = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 12,
-		label = "Number of Buttons"
-	}})
-	tinsert(defaults, { petbar_rows = {
-		type = "slider",
-		min = 1,
-		max = 12,
-		step = 1,
-		value = 1,
-		label = "Number of Rows"
-	}})
-
+	addBarConf(false, "petbar")
 
 --=========================================
 -- add to config lib
@@ -539,8 +225,6 @@ local size_sm = 20
 --==================================================================================
 -- Core Initialization
 --==================================================================================
-
-
 bdActionbars[2] = bdConfigLib:GetSave("Actionbars") -- config
 bdActionbars[2].border = bdConfigLib:GetSave("bdAddons").border
 

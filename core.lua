@@ -11,6 +11,20 @@ function a:ConfigCallback()
 		v()
 	end
 end
+local function HideKeybinds(frame)
+	local hide = frame.hidehotkeys and not IsMouseOverFrame(frame)
+
+	for i, button in pairs(buttonList) do
+		local hotkey = _G[button:GetName().."HotKey"]
+		if (hotkey) then
+			if (hide) then
+				hotkey:Hide()
+			else
+				hotkey:Show()
+			end
+		end
+	end
+end
 
 --=======================================
 -- Create Bars main function
@@ -19,6 +33,11 @@ function a:CreateBar(buttonList, cfg)
 	local frame = CreateFrame("Frame", cfg.frameName, UIParent, "SecureHandlerStateTemplate")
 	frame:SetPoint(unpack(cfg.frameSpawn))
 	frame.__blizzardBar = cfg.blizzardBar
+	frame.buttonList = buttonList
+
+	-- hide hotkeys based on mousing over full bar
+	frame:HookScript("OnEnter", HideKeybinds)
+	frame:HookScript("OnLeave", HideKeybinds)
 
 	-- Layout the buttons using the config options
 	a:LayoutBar(frame, buttonList, cfg)
@@ -58,29 +77,24 @@ end
 --=======================================
 function a:LayoutBar(frame, buttonList, cfg)
 	-- config
-	local limit = c[cfg.cfg.."_buttons"] or 12
-	local scale = c[cfg.cfg.."_scale"] or 1
-	local spacing = c[cfg.cfg.."_spacing"] or 0
-	spacing = spacing + c.border
-	local width = c[cfg.cfg.."_size"] * scale
-	local height = c[cfg.cfg.."_size"] * scale
-	if (cfg.widthScale) then
-		width = width * cfg.widthScale
-	end
-	local rows = c[cfg.cfg.."_rows"] or 1
-	local alpha = c[cfg.cfg.."_alpha"] or 1
+	frame.limit = c[cfg.cfg.."_buttons"] or 12
+	frame.scale = c[cfg.cfg.."_scale"] or 1
+	frame.spacing = (c[cfg.cfg.."_spacing"] or cfg.spacing or 0) + c.border
+	frame.width = (c[cfg.cfg.."_size"] * frame.scale) * cfg.widthScale or 1
+	frame.height = c[cfg.cfg.."_size"] * frame.scale
+	frame.rows = c[cfg.cfg.."_rows"] or 1
+	frame.alpha = c[cfg.cfg.."_alpha"] or 1
 	frame.enableFader = c[cfg.cfg.."_mouseover"] or false
+	frame.hidehotkeys = c[cfg.cfg.."_hidehotkeys"] or false
 
-	local num = #buttonList
-	local cols = math.floor(num / rows)
-	cols = math.min(cols, limit)
+	frame.num = #buttonList
+	frame.cols = math.min(frame.limit, math.floor(frame.num / frame.rows))
 
 	-- sizing
-	local frameWidth = cols * width + (cols-1) * spacing
-	local frameHeight = rows * height + (rows-1) * spacing
+	local frameWidth = frame.cols * frame.width + (frame.cols-1) * frame.spacing
+	local frameHeight = frame.rows * frame.height + (frame.rows-1) * frame.spacing
 	frame:SetSize(frameWidth, frameHeight)
-	frame:SetAlpha(alpha)
-	frame.__alpha = alpha
+	frame:SetAlpha(frame.alpha)
 
 	-- button positioning
 	local lastRow = nil
@@ -89,9 +103,14 @@ function a:LayoutBar(frame, buttonList, cfg)
 	for i, button in pairs(buttonList) do
 		if not frame.__blizzardBar then
 			button:SetParent(frame)
+		else
+			frame.__blizzardBar.size = frame.size
+			frame.__blizzardBar.alpha = frame.alpha
+			frame.__blizzardBar.spacing = frame.spacing
 		end
-		button:SetSize(width, height)
+		button:SetSize(frame.width, frame.height)
 
+		-- custom skinning callback
 		if (cfg.buttonSkin) then
 			cfg.buttonSkin(button)
 		else
@@ -99,7 +118,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 		end
 
 		button:ClearAllPoints()
-		if (i > limit) then
+		if (i > frame.limit) then
 			button:SetPoint("CENTER", v.hidden, "CENTER", 0, 0)
 			button:Hide()
 			button:SetAlpha(0)
@@ -111,11 +130,11 @@ function a:LayoutBar(frame, buttonList, cfg)
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 				lastRow = button
 			elseif (index > cols) then
-				button:SetPoint("TOPLEFT", lastRow, "BOTTOMLEFT", 0, -spacing)
+				button:SetPoint("TOPLEFT", lastRow, "BOTTOMLEFT", 0, -frame.spacing)
 				lastRow = button
 				index = 1
 			else
-				button:SetPoint("LEFT", buttonList[i - 1], "RIGHT", spacing, 0)
+				button:SetPoint("LEFT", buttonList[i - 1], "RIGHT", frame.spacing, 0)
 			end
 		end
 		index = index + 1
@@ -127,6 +146,7 @@ end
 --=======================================
 function a:SkinButton(button)
 	if button.skinned then return end
+	if (not button.SetNormalTexture) then return end
 
 	local name = button:GetName()
 	local icon = _G[name.."Icon"]
@@ -142,8 +162,6 @@ function a:SkinButton(button)
 	local normal2 = _G[name.."NormalTexture2"]
 	local btnBG = _G[name.."FloatingBG"]
 	local autocastable = _G[name.."AutoCastable"]
-
-	if (not button.SetNormalTexture) then return end
 
 	button:SetNormalTexture("")
 
@@ -230,3 +248,30 @@ function a:SkinButton(button)
 
 	button.skinned = true
 end
+
+
+-- Flyout skinning
+function styleFlyout(self)
+	if (not self.FlyoutArrow or InCombatLockdown()) then return end
+
+	local parent = self:GetParent():GetParent():GetParent()
+	local size = parent.width or c.bar1_size
+	local alpha = parent.alpha or 1
+	local spacing = parent.spacing or 2
+
+	for i = 1, NUM_ACTIONBAR_BUTTONS do
+		local button = _G["SpellFlyoutButton"..i]
+		if not button then break end
+
+		a:skinButton(button)
+		button:ClearAllPoints()
+		button:SetSize(size, size)
+		if (i == 1) then
+			button:SetPoint("BOTTOM", SpellFlyout, "BOTTOM", 0, spacing)
+		else
+			button:SetPoint("BOTTOM", _G["SpellFlyoutButton"..i-1], "TOP", 0, spacing)
+		end
+	end
+end
+hooksecurefunc("ActionButton_UpdateFlyout", styleFlyout)
+hooksecurefunc("SpellButton_OnClick", styleFlyout)

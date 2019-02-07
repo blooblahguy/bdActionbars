@@ -145,6 +145,7 @@ local defaultPadding = 20
 			v:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -6)
 			v:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 6)
 		end
+		bdCore:setBackdrop(button)
 	end
 	local buttonList = {}
 	for idx, buttonName in next, MICRO_BUTTONS do
