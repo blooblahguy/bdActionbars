@@ -18,40 +18,6 @@ local updater = CreateFrame("frame")
 updater:Hide()
 
 --=========================================
--- UPDATER FUNCTIONS
--- Loop through / enable OnUpdater as necessary
---=========================================
-local function UpdateButtons(elapsed)
-	if next(buttons) then
-		for button in pairs(buttons) do
-			UpdateButtonUsable(button)
-			UpdateButtonFlash(button, elapsed)
-		end
-
-		return true
-	end
-
-	return false
-end
-local function RequestUpdate()
-	if next(buttons) then
-		updater:Show()
-	end
-end
-
--- Throttled Updater
--- Automatically hides when not in use, reducing onupdate calls
-updater:SetScript("OnUpdate", function(self, elapsed)
-	total = total + elapsed
-	if (total >= throttle) then
-		total = 0
-		if not UpdateButtons(elapsed) then
-			self:Hide()
-		end
-	end
-end)
-
---=========================================
 -- BUTTON FUNCTIONS
 --=========================================
 -- This actually colors the button, main function
@@ -94,6 +60,28 @@ local function UpdateButtonFlash(self, elapsed)
 	end
 end
 
+--=========================================
+-- UPDATER FUNCTIONS
+-- Loop through / enable OnUpdater as necessary
+--=========================================
+local function UpdateButtons(elapsed)
+	if next(buttons) then
+		for button in pairs(buttons) do
+			UpdateButtonUsable(button)
+			UpdateButtonFlash(button, elapsed)
+		end
+
+		return true
+	end
+
+	return false
+end
+local function RequestUpdate()
+	if next(buttons) then
+		updater:Show()
+	end
+end
+
 -- add button to the queue if it's visible and actionable
 -- then run the onupdate if we're passed the throttle time
 local function UpdateButtonStatus(self)
@@ -107,6 +95,18 @@ local function UpdateButtonStatus(self)
 
 	RequestUpdate()
 end
+
+-- Throttled Updater
+-- Automatically hides when not in use, reducing onupdate calls
+updater:SetScript("OnUpdate", function(self, elapsed)
+	total = total + elapsed
+	if (total >= throttle) then
+		total = 0
+		if not UpdateButtons(elapsed) then
+			self:Hide()
+		end
+	end
+end)
 
 --=====================================================
 -- Main Hooks
