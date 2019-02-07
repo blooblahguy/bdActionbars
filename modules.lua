@@ -14,7 +14,7 @@ local colors = {}
 colors['normal'] = {1, 1, 1}
 colors['outmana'] = {0.3, 0.3, 0.8}
 colors['outrange'] = {0.8, 0.1, 0.1}
-colors['unusable'] = {0.4, 0.4, 0.4}
+colors['unusable'] = {0.3, 0.3, 0.3}
 local updater = CreateFrame("frame")
 updater:Hide()
 
@@ -29,11 +29,15 @@ local function UpdateButtonUsable(self, force)
 
 	local action = self.action
 	local isUsable, notEnoughMana = IsUsableAction(action)
-	local colorkey = "unusable"
+	local colorkey = "normal"
 	if (isUsable) then
-		colorkey = IsActionInRange(action) and "normal" or "outrange"
-	elseif (notEnoughMana) then
-		colorkey = "outmana"
+		if (ActionHasRange(action) and IsActionInRange(action) == false) then
+			colorkey = "outrange"
+		elseif (notEnoughMana)
+			colorkey = "outmana"
+		end
+	else
+		colorkey = "unusable"
 	end
 
 	-- cache results, because SetVertexColor is expensive, we don't want to recall it if unecessary
