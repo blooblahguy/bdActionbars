@@ -3,6 +3,13 @@ local a, c, v = select(2, ...):unpack()
 --===================================================
 -- Range Display
 --===================================================
+v.total = 0
+v.throttle = 10
+local colors = {}
+colors['range'] = {1, 1, 1}
+colors['outmana'] = {0.3, 0.3, 0.8}
+colors['outrange'] = {0.8, 0.1, 0.1}
+
 local function RangedUpdate(self)
 	local Name = self:GetName()
 	local Icon = _G[Name.."Icon"]
@@ -11,6 +18,7 @@ local function RangedUpdate(self)
 	local IsUsable, NotEnoughMana = IsUsableAction(ID)
 	local HasRange = ActionHasRange(ID)
 	local InRange = IsActionInRange(ID)
+	-- v.total = 0
 	
 	 if IsUsable then -- Usable
 		if (HasRange and InRange == false) then -- Out of range
@@ -29,18 +37,19 @@ local function RangedUpdate(self)
 	end
 end
 
-local total = 0
-local throttle = 0.1
+
 local function RangedOnUpdate(self, elapsed)
-	total = total + elapsed
-	if (total >= throttle) then
+	v.total = v.total + elapsed
+	if (v.total >= v.throttle) then
+	-- print(v.total, elapsed)
+		v.total = 0
 		RangedUpdate(self)
 	end
 end
 
 hooksecurefunc("ActionButton_OnUpdate", RangedOnUpdate)
-hooksecurefunc("ActionButton_Update", RangedUpdate)
-hooksecurefunc("ActionButton_UpdateUsable", RangedUpdate)
+-- hooksecurefunc("ActionButton_Update", RangedUpdate)
+-- hooksecurefunc("ActionButton_UpdateUsable", RangedUpdate)
 
 --===================================================
 -- Hotkey Improvements

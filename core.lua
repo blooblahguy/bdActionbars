@@ -53,6 +53,7 @@ end
 --=======================================
 function a:LayoutBar(frame, buttonList, cfg)
 	-- config
+	local limit = c[cfg.cfg.."_buttons"] or 12
 	local scale = c[cfg.cfg.."_scale"] or 1
 	local spacing = c[cfg.cfg.."_spacing"] or 0
 	spacing = spacing + c.border
@@ -63,11 +64,11 @@ function a:LayoutBar(frame, buttonList, cfg)
 	end
 	local rows = c[cfg.cfg.."_rows"] or 1
 	local alpha = c[cfg.cfg.."_alpha"] or 1
-	local limit = c[cfg.cfg.."_buttons"] or 12
 	local mouseover = c[cfg.cfg.."_mouseover"] or false
 
 	local num = #buttonList
 	local cols = math.floor(num / rows)
+	cols = math.min(cols, limit)
 
 	-- sizing
 	local frameWidth = cols * width + (cols-1) * spacing
@@ -76,7 +77,11 @@ function a:LayoutBar(frame, buttonList, cfg)
 	frame:SetAlpha(alpha)
 	frame.__alpha = alpha
 
+	local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
+
 	-- button positioning
+	local lastRow = nil
+	local index = 1
 	for i, button in pairs(buttonList) do
 		if not frame.__blizzardBar then
 			button:SetParent(frame)
@@ -91,16 +96,25 @@ function a:LayoutBar(frame, buttonList, cfg)
 
 		button:ClearAllPoints()
 		if (i > limit) then
-			button:SetPoint("CENTER", v.hidden)
+			button:SetPoint("CENTER", v.hidden, "CENTER", 0, 0)
+			button:Hide()
+			button:SetAlpha(0)
 		else
+			button:SetAlpha(1)
+			button:Show()
+			button:SetAttribute("showgrid", showgrid)
 			if (i == 1) then
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
-			elseif (i > cols) then
-				button:SetPoint("TOPLEFT", buttonList[cols], "BOTTOMLEFT", 0, -spacing)
+				lastRow = button
+			elseif (index > cols) then
+				button:SetPoint("TOPLEFT", lastRow, "BOTTOMLEFT", 0, -spacing)
+				lastRow = button
+				index = 1
 			else
 				button:SetPoint("LEFT", buttonList[i - 1], "RIGHT", spacing, 0)
 			end
 		end
+		index = index + 1
 	end
 end
 
@@ -124,6 +138,8 @@ function a:SkinButton(button)
 	local normal2 = _G[name.."NormalTexture2"]
 	local btnBG = _G[name.."FloatingBG"]
 	local autocastable = _G[name.."AutoCastable"]
+
+	if (not button.SetNormalTexture) then return end
 
 	button:SetNormalTexture("")
 

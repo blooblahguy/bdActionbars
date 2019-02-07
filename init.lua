@@ -1,4 +1,6 @@
 local addonName, bdActionbars = ...
+bdActionbars[1] = CreateFrame("Frame", "bdActionbars Core", UIParent) -- frame
+local a = bdActionbars[1]
 --[[
 	Significat thanks and props to Zork for rActionbars and zLip functionality that makes this all way less of a nightmare
 ]]
@@ -21,7 +23,7 @@ local size_sm = 20
 		value = 12,
 		label = "Main Font Size"
 	}})
-	-- tinsert(defaults, { clear = { type = "clear" }})
+	tinsert(defaults, { clear = { type = "clear" }})
 
 	-- micro
 	tinsert(defaults, { showMicro = {
@@ -97,6 +99,7 @@ local size_sm = 20
 -- Main Bar
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Main Bar"
 	}})
 	tinsert(defaults, { bar1_mouseover = {
@@ -157,6 +160,7 @@ local size_sm = 20
 -- Bar 2
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Bar 2"
 	}})
 	tinsert(defaults, { bar2_mouseover = {
@@ -217,6 +221,7 @@ local size_sm = 20
 -- Bar 3
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Bar 3"
 	}})
 	tinsert(defaults, { bar3_mouseover = {
@@ -277,6 +282,7 @@ local size_sm = 20
 -- Bar 4
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Bar 4"
 	}})
 	tinsert(defaults, { bar4_mouseover = {
@@ -337,6 +343,7 @@ local size_sm = 20
 -- Bar 5
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Bar 5"
 	}})
 	tinsert(defaults, { bar5_mouseover = {
@@ -397,9 +404,15 @@ local size_sm = 20
 -- Stance & Pet
 --=========================================
 	tinsert(defaults, { tab = {
+		type = "tab",
 		value = "Stance & Pet"
 	}})
 	-- STANCE
+	tinsert(defaults, { clear = { type = "clear" }})
+	tinsert(defaults, { text = {
+		type = "text",
+		value = "Stance Bar"
+	}})
 	tinsert(defaults, { stancebar_mouseover = {
 		type = "checkbox",
 		value = false,
@@ -455,6 +468,11 @@ local size_sm = 20
 	}})
 
 	-- PET
+	tinsert(defaults, { clear = { type = "clear" }})
+	tinsert(defaults, { text = {
+		type = "text",
+		value = "Pet Bar"
+	}})
 	tinsert(defaults, { petbar_mouseover = {
 		type = "checkbox",
 		value = false,
@@ -521,7 +539,7 @@ local size_sm = 20
 --==================================================================================
 -- Core Initialization
 --==================================================================================
-bdActionbars[1] = CreateFrame("Frame", "bdActionbars Core", UIParent) -- frame
+
 
 bdActionbars[2] = bdConfigLib:GetSave("Actionbars") -- config
 bdActionbars[2].border = bdConfigLib:GetSave("bdAddons").border

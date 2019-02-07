@@ -84,6 +84,7 @@ PossessBackground1:SetTexture(nil)
 PossessBackground2:SetTexture(nil)
 
 ExtraActionBarFrame.ignoreFramePositionManager = true
+ZoneAbilityFrame.ignoreFramePositionManager = true
 
 PetBattleFrame.BottomFrame.MicroButtonFrame:SetScript("OnShow", nil)
 OverrideActionBar:SetScript("OnShow", nil)

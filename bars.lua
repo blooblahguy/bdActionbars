@@ -10,7 +10,8 @@ local defaultPadding = 20
 	cfg.blizzardBar = nil
 	cfg.cfg = "bar1"
 	cfg.frameName = "bdActionbars_1"
-	cfg.frameVisibility = "[petbattle] hide; [combat][mod][@target,exists,nodead][@vehicle,exists][overridebar][shapeshift][vehicleui][possessbar] show; hide"
+	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; show"
+	-- cfg.frameVisibility = "[petbattle] hide; [combat][mod][@target,exists,nodead][@vehicle,exists][overridebar][shapeshift][vehicleui][possessbar] show; hide"
 	cfg.frameSpawn = {"BOTTOM", UIParent, "BOTTOM", 0, defaultPadding}
 	cfg.actionPage = "[bar:6]6;[bar:5]5;[bar:4]4;[bar:3]3;[bar:2]2;[overridebar]14;[shapeshift]13;[vehicleui]12;[possessbar]12;[bonusbar:5]11;[bonusbar:4]10;[bonusbar:3]9;[bonusbar:2]8;[bonusbar:1]7;1"
 
@@ -56,7 +57,8 @@ local defaultPadding = 20
 	cfg.blizzardBar = MultiBarBottomLeft
 	cfg.cfg = "bar2"
 	cfg.frameName = "bdActionbars_2"
-	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; [combat][mod][@target,exists,nodead] show; hide"
+	-- cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; [combat][mod][@target,exists,nodead] show; hide"
+	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; show"
 	cfg.frameSpawn = {"RIGHT", bar1, "LEFT", -defaultPadding, 0}
 
 	local buttonList = a:GetButtonList("MultiBarBottomLeftButton", NUM_ACTIONBAR_BUTTONS)
@@ -121,7 +123,7 @@ local defaultPadding = 20
 	cfg.cfg = "stancebar"
 	cfg.blizzardBar = StanceBarFrame
 	cfg.frameName = "bdActionbars_StanceBar"
-	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift][nomod] hide; show"
+	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; show"
 	cfg.frameSpawn = {"BOTTOMLEFT", bar1, "TOPLEFT", 0, defaultPadding}
 
 	local buttonList = a:GetButtonList("StanceButton", NUM_STANCE_SLOTS)
@@ -228,4 +230,5 @@ local defaultPadding = 20
 	cfg.frameSpawn = { "LEFT", UIParent, "LEFT", defaultPadding }
 
 	local buttonList = a:GetButtonList("ExtraActionButton", NUM_ACTIONBAR_BUTTONS)
+	table.insert(buttonList, ZoneAbilityFrame)
 	local extra = a:CreateBar(buttonList, cfg)
