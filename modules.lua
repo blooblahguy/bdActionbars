@@ -14,6 +14,7 @@ local colors = {}
 colors['normal'] = {1, 1, 1}
 colors['outmana'] = {0.3, 0.3, 0.8}
 colors['outrange'] = {0.8, 0.1, 0.1}
+colors['unusable'] = {0.4, 0.4, 0.4}
 local updater = CreateFrame("frame")
 updater:Hide()
 
