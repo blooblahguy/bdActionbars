@@ -550,9 +550,9 @@ bdActionbars[3].hidden:Hide()
 bdActionbars[3].callbacks = {}
 
 bdActionbars[3].font = CreateFont("BDA_FONT")
-bdActionbars[3].font:SetFont(bdCore.media.font, bdActionbars[2].font_size)
+bdActionbars[3].font:SetFont(bdCore.media.font, bdActionbars[2].font_size, "OUTLINE")
 bdActionbars[3].font:SetShadowColor(0, 0, 0)
-bdActionbars[3].font:SetShadowOffset(1, -1)
+bdActionbars[3].font:SetShadowOffset(0, 0)
 
 function bdActionbars:unpack()
 	return self[1], self[2], self[3]

@@ -45,6 +45,11 @@ function a:CreateBar(buttonList, cfg)
 	-- Moveable
 	bdCore:makeMovable(frame)
 
+	-- Fader
+	if (c[cfg.cfg.."_mouseover"]) then
+		bdMoveLib:CreateFader(frame, buttonList, alpha)
+	end
+
 	return frame
 end
 
@@ -64,7 +69,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 	end
 	local rows = c[cfg.cfg.."_rows"] or 1
 	local alpha = c[cfg.cfg.."_alpha"] or 1
-	local mouseover = c[cfg.cfg.."_mouseover"] or false
+	frame.enableFader = c[cfg.cfg.."_mouseover"] or false
 
 	local num = #buttonList
 	local cols = math.floor(num / rows)
@@ -77,11 +82,10 @@ function a:LayoutBar(frame, buttonList, cfg)
 	frame:SetAlpha(alpha)
 	frame.__alpha = alpha
 
-	local showgrid = tonumber(GetCVar("alwaysShowActionBars"))
-
 	-- button positioning
 	local lastRow = nil
 	local index = 1
+	local showgrid = tonumber(GetCVar("alwaysShowActionBars"))	
 	for i, button in pairs(buttonList) do
 		if not frame.__blizzardBar then
 			button:SetParent(frame)
