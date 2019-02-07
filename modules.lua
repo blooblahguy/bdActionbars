@@ -33,7 +33,7 @@ local function UpdateButtonUsable(self, force)
 	if (isUsable) then
 		if (ActionHasRange(action) and IsActionInRange(action) == false) then
 			colorkey = "outrange"
-		elseif (notEnoughMana)
+		elseif (notEnoughMana) then
 			colorkey = "outmana"
 		end
 	else
