@@ -18,21 +18,9 @@ local updater = CreateFrame("frame")
 updater:Hide()
 
 --=========================================
--- Throttled Updater
--- Automatically hides when not in use, reducing onupdate calls
---=========================================
-updater:SetScript("OnUpdate", function(self, elapsed)
-	total = total + elapsed
-	if (total >= throttle) then
-		total = 0
-		if not UpdateButtons(elapsed) then
-			self:Hide()
-		end
-	end
-end)
-
 -- UPDATER FUNCTIONS
 -- Loop through / enable OnUpdater as necessary
+--=========================================
 local function UpdateButtons(elapsed)
 	if next(buttons) then
 		for button in pairs(buttons) do
@@ -50,6 +38,18 @@ local function RequestUpdate()
 		updater:Show()
 	end
 end
+
+-- Throttled Updater
+-- Automatically hides when not in use, reducing onupdate calls
+updater:SetScript("OnUpdate", function(self, elapsed)
+	total = total + elapsed
+	if (total >= throttle) then
+		total = 0
+		if not UpdateButtons(elapsed) then
+			self:Hide()
+		end
+	end
+end)
 
 --=========================================
 -- BUTTON FUNCTIONS
