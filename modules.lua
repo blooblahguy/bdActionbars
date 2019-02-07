@@ -21,7 +21,7 @@ updater:Hide()
 -- Throttled Updater
 -- Automatically hides when not in use, reducing onupdate calls
 --=========================================
-updater:SetScript("OnUpdate", function(self, elapsed))
+updater:SetScript("OnUpdate", function(self, elapsed)
 	total = total + elapsed
 	if (total >= throttle) then
 		total = 0

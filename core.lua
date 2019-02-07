@@ -80,7 +80,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 	frame.limit = c[cfg.cfg.."_buttons"] or 12
 	frame.scale = c[cfg.cfg.."_scale"] or 1
 	frame.spacing = (c[cfg.cfg.."_spacing"] or cfg.spacing or 0) + c.border
-	frame.width = (c[cfg.cfg.."_size"] * frame.scale) * cfg.widthScale or 1
+	frame.width = (c[cfg.cfg.."_size"] * frame.scale) * (cfg.widthScale or 1)
 	frame.height = c[cfg.cfg.."_size"] * frame.scale
 	frame.rows = c[cfg.cfg.."_rows"] or 1
 	frame.alpha = c[cfg.cfg.."_alpha"] or 1
@@ -251,19 +251,19 @@ end
 
 
 -- Flyout skinning
-function styleFlyout(self)
+local function StyleFlyout(self)
 	if (not self.FlyoutArrow or InCombatLockdown()) then return end
 
 	local parent = self:GetParent():GetParent():GetParent()
-	local size = parent.width or c.bar1_size
-	local alpha = parent.alpha or 1
-	local spacing = parent.spacing or 2
+	local size = parent and parent.width or c.bar1_size
+	local alpha = parent and parent.alpha or 1
+	local spacing = parent and parent.spacing or 2
 
 	for i = 1, NUM_ACTIONBAR_BUTTONS do
 		local button = _G["SpellFlyoutButton"..i]
 		if not button then break end
 
-		a:skinButton(button)
+		a:SkinButton(button)
 		button:ClearAllPoints()
 		button:SetSize(size, size)
 		if (i == 1) then
@@ -273,5 +273,5 @@ function styleFlyout(self)
 		end
 	end
 end
-hooksecurefunc("ActionButton_UpdateFlyout", styleFlyout)
-hooksecurefunc("SpellButton_OnClick", styleFlyout)
+hooksecurefunc("ActionButton_UpdateFlyout", StyleFlyout)
+hooksecurefunc("SpellButton_OnClick", StyleFlyout)
