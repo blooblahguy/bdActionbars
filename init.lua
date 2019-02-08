@@ -88,6 +88,16 @@ end
 --=========================================
 -- General
 --=========================================
+	tinsert(defaults, { bindingmode = {
+		type = "button",
+		value = "Toggle Binding Mode",
+		callback = function() a:ToggleBindings() end
+	}})
+	tinsert(defaults, { bindaccount = {
+		type = "checkbox",
+		value = true,
+		label = "Save bindings by account"
+	}})
 	tinsert(defaults, { font_size = {
 		type = "slider",
 		min = 1,
@@ -95,6 +105,14 @@ end
 		step = 1,
 		value = 12,
 		label = "Main Font Size"
+	}})
+	tinsert(defaults, { font_size = {
+		type = "slider",
+		min = 0,
+		max = 1,
+		step = 0.1,
+		value = 0.2,
+		label = "Bar Fade Duration"
 	}})
 	tinsert(defaults, { clear = { type = "clear" }})
 

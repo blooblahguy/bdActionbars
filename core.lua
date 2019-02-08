@@ -227,13 +227,13 @@ function a:SkinButton(button)
 	button:SetCheckedTexture(button.checked)	
 
 	-- Position these things onto the button
-	if shine then
+	if (shine) then
 		shine:SetAlpha(0)
 		shine:Hide()
 		shine:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 0, 0)
 		shine:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
 	end
-	if checked then
+	if (checked) then
 		checked:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 0, 0)
 		checked:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, 0)
 	end
