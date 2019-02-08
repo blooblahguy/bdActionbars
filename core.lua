@@ -4,7 +4,7 @@ local a, c, v = select(2, ...):unpack()
 -- Primary Configuration callback
 --=======================================
 function a:ConfigCallback()
-	v.font:SetFont(bdCore.media.font, c.font_size)
+	v.font:SetFont(bdCore.media.font, c.font_size, "OUTLINE")
 
 	-- loop through bar callbacks
 	for k, v in pairs(v.callbacks) do
@@ -14,7 +14,7 @@ end
 local function HideKeybinds(frame)
 	local hide = frame.hidehotkeys and not IsMouseOverFrame(frame)
 
-	for i, button in pairs(buttonList) do
+	for i, button in pairs(frame.buttonList) do
 		local hotkey = _G[button:GetName().."HotKey"]
 		if (hotkey) then
 			if (hide) then
@@ -64,11 +64,6 @@ function a:CreateBar(buttonList, cfg)
 	-- Moveable
 	bdCore:makeMovable(frame)
 
-	-- Fader
-	if (c[cfg.cfg.."_mouseover"]) then
-		bdMoveLib:CreateFader(frame, buttonList, alpha)
-	end
-
 	return frame
 end
 
@@ -86,15 +81,22 @@ function a:LayoutBar(frame, buttonList, cfg)
 	frame.alpha = c[cfg.cfg.."_alpha"] or 1
 	frame.enableFader = c[cfg.cfg.."_mouseover"] or false
 	frame.hidehotkeys = c[cfg.cfg.."_hidehotkeys"] or false
-
+	
 	frame.num = #buttonList
 	frame.cols = math.min(frame.limit, math.floor(frame.num / frame.rows))
 
 	-- sizing
-	local frameWidth = frame.cols * frame.width + (frame.cols-1) * frame.spacing
-	local frameHeight = frame.rows * frame.height + (frame.rows-1) * frame.spacing
+	local frameWidth = 10 + frame.cols * frame.width + (frame.cols-1) * frame.spacing
+	local frameHeight = 10 + frame.rows * frame.height + (frame.rows-1) * frame.spacing
 	frame:SetSize(frameWidth, frameHeight)
 	frame:SetAlpha(frame.alpha)
+
+	-- Fader
+	if (frame.enableFader) then
+		bdMoveLib:CreateFader(frame, buttonList, alpha)
+		frame:SetAlpha(0)
+	end
+	
 
 	-- button positioning
 	local lastRow = nil
@@ -127,7 +129,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 			button:Show()
 			button:SetAttribute("showgrid", showgrid)
 			if (i == 1) then
-				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -5)
 				lastRow = button
 			elseif (index > frame.cols) then
 				button:SetPoint("TOPLEFT", lastRow, "BOTTOMLEFT", 0, -frame.spacing)
