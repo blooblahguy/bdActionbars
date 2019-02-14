@@ -14,9 +14,9 @@ binder:Hide()
 binder.backlay = binder:CreateTexture(nil, "OVERLAY")
 binder.backlay:SetAllPoints()
 binder.backlay:SetTexture(0, 0, 0, .25)
-binder.text = binder.overlay:CreateFontString(nil, "OVERLAY")
+binder.text = binder:CreateFontString(nil, "OVERLAY")
 binder.text:SetFontObject("BDA_FONT")
-binder.text:SetColor(0.8, 0.8, 0)
+binder.text:SetTextColor(0.8, 0.8, 0)
 binder.text:SetJustifyH("CENTER")
 binder.text:SetJustifyV("MIDDLE")
 binder.text:SetPoint("CENTER")
@@ -25,6 +25,8 @@ binder.text:SetPoint("CENTER")
 -- Binder Listener
 --=======================================================
 function binder:Listener(key)
+	if not v.ToggleBindings or InCombatLockdown() then return end
+
 	if key == "ESCAPE" or key == "RightButton" then
 		SetBinding(self.command, nil, self.secondary)
 
@@ -67,6 +69,7 @@ end
 --=======================================================
 function binder:Update(button, spelltype)
 	if not v.ToggleBindings or InCombatLockdown() then return end
+
 	self.button = button
 	self.spellmacro = spelltype
 	
@@ -82,9 +85,9 @@ function binder:Update(button, spelltype)
 		-- can theoretically set 3rd and 4th bindings for everything, but we'll just display primary
 		self.command, self.primary, self.secondary =GetBindingKey(spelltype.." "..self.button.name)
 		if (self.primary) then
-			self:SetText(self.primary)
+			self.text:SetText(self.primary)
 		else
-			self:SetText("")
+			self.text:SetText("")
 		end
 	elseif spellmacro == "MACRO" then
 		self.button.id = self.button:GetID()
@@ -93,9 +96,9 @@ function binder:Update(button, spelltype)
 
 		self.command, self.primary, self.secondary =GetBindingKey(spelltype.." "..self.button.name)
 		if (self.primary) then
-			self:SetText(self.primary)
+			self.text:SetText(self.primary)
 		else
-			self:SetText("")
+			self.text:SetText("")
 		end
 	elseif spellmacro == "STANCE" or spellmacro == "PET" then
 		self.button.id = tonumber(button:GetID())
@@ -112,9 +115,9 @@ function binder:Update(button, spelltype)
 
 		self.command, self.primary, self.secondary = GetBindingKey(bind.button.bindstring)
 		if (self.primary) then
-			self:SetText(self.primary)
+			self.text:SetText(self.primary)
 		else
-			self:SetText("")
+			self.text:SetText("")
 		end
 	else
 		self.button.action = tonumber(button.action)
@@ -139,11 +142,11 @@ function binder:Update(button, spelltype)
 			end
 		end
 
-		self.command, self.primary, self.secondary = GetBindingKey(bind.button.bindstring)
+		self.command, self.primary, self.secondary = GetBindingKey(self.button.bindstring)
 		if (self.primary) then
-			self:SetText(self.primary)
+			self.text:SetText(self.primary)
 		else
-			self:SetText("")
+			self.text:SetText("")
 		end
 	end
 end
@@ -245,6 +248,7 @@ end
 --=======================================================
 function binder:Deactivate(save)
 	local acc_or_char = c.bindaccount and 2 or 1
+	v.ToggleBindings = false
 
 	if save then
 		SaveBindings(acc_or_char)

@@ -3,7 +3,14 @@ local a, c, v = select(2, ...):unpack()
 --=======================================
 -- Primary Configuration callback
 --=======================================
+a:SetScript("OnEvent", a.ConfigCallback)
 function a:ConfigCallback()
+	if (InCombatLockdown()) then
+		a:RegisterEvent("PLAYER_REGEN_DISABLED")
+		return
+	end
+	
+	a:UnregisterEvent("PLAYER_REGEN_DISABLED")
 	v.font:SetFont(bdCore.media.font, c.font_size, "OUTLINE")
 
 	-- loop through bar callbacks
@@ -11,6 +18,7 @@ function a:ConfigCallback()
 		v()
 	end
 end
+
 local function HideKeybinds(frame)
 	local hide = frame.hidehotkeys and not IsMouseOverFrame(frame)
 
