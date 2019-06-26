@@ -64,6 +64,7 @@ end
 --fix blizzard cooldown flash
 local function FixCooldownFlash(self)
 	if not self then return end
+	if InCombatLockdown() then return end
 	if self:GetEffectiveAlpha() > 0 then
 		self:Show()
 	else

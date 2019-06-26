@@ -70,7 +70,7 @@ function a:CreateBar(buttonList, cfg)
 	end
 
 	-- Moveable
-	bdCore:makeMovable(frame)
+	-- bdCore:makeMovable(frame)
 
 	return frame
 end
@@ -134,7 +134,9 @@ function a:LayoutBar(frame, buttonList, cfg)
 			button:SetAlpha(0)
 		else
 			button:SetAlpha(1)
-			button:Show()
+			if (not InCombatLockdown()) then
+				button:Show()
+			end
 			button:SetAttribute("showgrid", showgrid)
 			if (i == 1) then
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -5)
