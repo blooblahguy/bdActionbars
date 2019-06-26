@@ -138,6 +138,8 @@ local defaultPadding = 20
 	cfg.frameVisibility = "[petbattle] hide; show"
 	cfg.frameSpawn = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -defaultPadding, defaultPadding}
 	cfg.widthScale = 0.777
+	TalentMicroButtonAlert:Hide()
+	TalentMicroButtonAlert.Show = function() return end
 	cfg.buttonSkin = function(button)
 		local regions = {button:GetRegions()}
 		for k, v in pairs(regions) do

@@ -70,7 +70,7 @@ function a:CreateBar(buttonList, cfg)
 	end
 
 	-- Moveable
-	-- bdCore:makeMovable(frame)
+	bdCore:makeMovable(frame)
 
 	return frame
 end
@@ -104,7 +104,6 @@ function a:LayoutBar(frame, buttonList, cfg)
 		bdMoveLib:CreateFader(frame, buttonList, alpha)
 		frame:SetAlpha(0)
 	end
-	
 
 	-- button positioning
 	local lastRow = nil
