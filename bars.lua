@@ -139,10 +139,11 @@ local defaultPadding = 20
 	cfg.frameSpawn = {"BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -defaultPadding, defaultPadding}
 	cfg.widthScale = 0.777
 	TalentMicroButtonAlert:Hide()
-	TalentMicroButtonAlert.Show = function() return end
+	TalentMicroButtonAlert.Show = noop
 	cfg.buttonSkin = function(button)
 		local regions = {button:GetRegions()}
 		for k, v in pairs(regions) do
+			if (v == button.background or v == button.border) then return end
 			v:SetTexCoord(.17, .80, .22, .82)
 			v:SetPoint("TOPLEFT", button, "TOPLEFT", 4, -6)
 			v:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -4, 6)
@@ -164,8 +165,15 @@ local defaultPadding = 20
 	cfg = {}
 	cfg.cfg = "bagbar"
 	cfg.frameName = "bdActionbars_BagBar"
-	cfg.frameVisibility = "[petbattle] hide; show"
+	-- cfg.frameVisibility = "[petbattle] hide; show"
 	cfg.frameSpawn = { "BOTTOMRIGHT", micromenu, "TOPRIGHT", 0, defaultPadding }
+	function cfg:callback(frame)
+		if (c.showBags) then
+			_G['bdActionbars_BagBar']:Show()
+		else
+			_G['bdActionbars_BagBar']:Hide()
+		end
+	end
 	local buttonList = { MainMenuBarBackpackButton, CharacterBag0Slot, CharacterBag1Slot, CharacterBag2Slot, CharacterBag3Slot }
 	local bagbar = a:CreateBar(buttonList, cfg)
 
@@ -180,7 +188,7 @@ local defaultPadding = 20
 	cfg.frameSpawn = { "BOTTOMRIGHT", bar1, "TOPLEFT", -defaultPadding, defaultPadding }
 	--create vehicle exit button
 	local button = CreateFrame("CHECKBUTTON", "bdActionbars_VehicleExitButton", nil, "ActionButtonTemplate, SecureHandlerClickTemplate")
-	button.icon:SetTexture("TEXTURES\\VEHICLES\\UI-Vehicles-Button-Exit-Up")
+	button.icon:SetTexture("Interface\\Vehicles\\UI-Vehicles-Button-Exit-Up")
 	button:SetScript("OnEnter", function() 
 		ShowUIPanel(GameTooltip)
 		GameTooltip:SetOwner(UIParent, "ANCHOR_CURSOR")

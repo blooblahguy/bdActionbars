@@ -47,13 +47,16 @@ function a:CreateBar(buttonList, cfg)
 	frame:HookScript("OnEnter", HideKeybinds)
 	frame:HookScript("OnLeave", HideKeybinds)
 
-	-- Layout the buttons using the config options
-	a:LayoutBar(frame, buttonList, cfg)
-
 	-- hook into configuration changes
 	table.insert(v.callbacks, function() a:LayoutBar(frame, buttonList, cfg) end)
 	if (cfg.callback) then
 		table.insert(v.callbacks, cfg.callback)
+	end
+
+	-- Layout the buttons using the config options
+	a:LayoutBar(frame, buttonList, cfg)
+	if (cfg.callback) then
+		cfg:callback(frame)
 	end
 
 	--reparent the Blizzard bar
@@ -99,6 +102,9 @@ function a:LayoutBar(frame, buttonList, cfg)
 	frame:SetSize(frameWidth, frameHeight)
 	frame:SetAlpha(frame.alpha)
 
+	-- hotkeys
+	HideKeybinds(frame)
+	
 	-- Fader
 	if (frame.enableFader) then
 		bdMoveLib:CreateFader(frame, buttonList, alpha)
