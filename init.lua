@@ -88,16 +88,16 @@ end
 --=========================================
 -- General
 --=========================================
-	tinsert(defaults, { bindingmode = {
-		type = "button",
-		value = "Toggle Binding Mode",
-		callback = function() a:ToggleBindings() end
-	}})
-	tinsert(defaults, { bindaccount = {
-		type = "checkbox",
-		value = true,
-		label = "Save bindings by account"
-	}})
+	-- tinsert(defaults, { bindingmode = {
+	-- 	type = "button",
+	-- 	value = "Toggle Binding Mode",
+	-- 	callback = function() a:ToggleBindings() end
+	-- }})
+	-- tinsert(defaults, { bindaccount = {
+	-- 	type = "checkbox",
+	-- 	value = true,
+	-- 	label = "Save bindings by account"
+	-- }})
 	tinsert(defaults, { font_size = {
 		type = "slider",
 		min = 1,
