@@ -59,21 +59,21 @@ function a:CreateBar(buttonList, cfg)
 		cfg:callback(frame)
 	end
 
+	-- Moveable
+	bdCore:makeMovable(frame)
+
+	-- frame:EnableMouse(true)
+	-- frame:SetMovable(true)
+	-- frame:SetUserPlaced(true)
+	-- frame:RegisterForDrag("LeftButton")
+	-- frame:SetScript("OnDragStart", function() frame:StartMoving() end)
+	-- frame:SetScript("OnDragStop", function() frame:StopMovingOrSizing() end)
+
 	--reparent the Blizzard bar
 	if cfg.blizzardBar then
 		cfg.blizzardBar:SetParent(frame)
 		cfg.blizzardBar:EnableMouse(false)
 	end
-
-	-- visibility driver
-	if cfg.frameVisibility then
-		frame.frameVisibility = cfg.frameVisibility
-		frame.frameVisibilityFunc = cfg.frameVisibilityFunc
-		RegisterStateDriver(frame, cfg.frameVisibilityFunc or "visibility", cfg.frameVisibility)
-	end
-
-	-- Moveable
-	bdCore:makeMovable(frame)
 
 	return frame
 end
@@ -95,6 +95,13 @@ function a:LayoutBar(frame, buttonList, cfg)
 	
 	frame.num = #buttonList
 	frame.cols = math.min(frame.limit, math.floor(frame.num / frame.rows))
+
+	-- register visibility driver, on init and on callback
+	if cfg.frameVisibility then
+		frame.frameVisibility = cfg.frameVisibility
+		frame.frameVisibilityFunc = cfg.frameVisibilityFunc
+		RegisterStateDriver(frame, cfg.frameVisibilityFunc or "visibility", cfg.frameVisibility)
+	end
 
 	-- sizing
 	local frameWidth = 10 + frame.cols * frame.width + (frame.cols-1) * frame.spacing
@@ -139,9 +146,7 @@ function a:LayoutBar(frame, buttonList, cfg)
 			button:SetAlpha(0)
 		else
 			button:SetAlpha(1)
-			if (not InCombatLockdown()) then
-				button:Show()
-			end
+			button:Show()
 			button:SetAttribute("showgrid", showgrid)
 			if (i == 1) then
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, -5)

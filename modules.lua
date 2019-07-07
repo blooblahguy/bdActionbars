@@ -113,20 +113,6 @@ updater:SetScript("OnUpdate", function(self, elapsed)
 	end
 end)
 
---=====================================================
--- Main Hooks
--- Dequeue this button's updater, and use our own queue
---=====================================================
-hooksecurefunc('ActionButton_OnUpdate', function(button)
-	button:HookScript('OnShow', UpdateButtonStatus)
-	button:HookScript('OnHide', UpdateButtonStatus)
-	button:SetScript('OnUpdate', nil)
-	UpdateButtonStatus(button)
-end)
-hooksecurefunc('ActionButton_Update', UpdateButtonStatus)
-hooksecurefunc('ActionButton_UpdateUsable', function(button) UpdateButtonUsable(button, true) end)
-
-
 --===================================================
 -- Hotkey Improvements
 --===================================================
@@ -173,5 +159,17 @@ function a:UpdateHotkeys(frame)
 	hotkey:SetText(text)
 end
 
+--=====================================================
+-- Main Hooks
+-- Dequeue this button's updater, and use our own queue
+--=====================================================
+hooksecurefunc('ActionButton_OnUpdate', function(button)
+	button:HookScript('OnShow', UpdateButtonStatus)
+	button:HookScript('OnHide', UpdateButtonStatus)
+	button:SetScript('OnUpdate', nil)
+	UpdateButtonStatus(button)
+end)
+hooksecurefunc('ActionButton_Update', UpdateButtonStatus)
+hooksecurefunc('ActionButton_UpdateUsable', function(button) UpdateButtonUsable(button, true) end)
 hooksecurefunc("ActionButton_UpdateHotkeys", a.UpdateHotkeys)
 hooksecurefunc("PetActionButton_SetHotkeys", a.UpdateHotkeys)
