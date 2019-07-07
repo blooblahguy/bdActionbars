@@ -109,7 +109,7 @@ local defaultPadding = 20
 	cfg.cfg = "petbar"
 	cfg.blizzardBar = PetActionBarFrame
 	cfg.frameName = "bdActionbars_PetBar"
-	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; [pet,mod] show; hide"
+	cfg.frameVisibility = "[petbattle][overridebar][vehicleui][possessbar][shapeshift] hide; [pet] show; hide"
 	cfg.frameSpawn = {"BOTTOMRIGHT", bar1, "TOPRIGHT", 0, defaultPadding}
 
 	local buttonList = a:GetButtonList("PetActionButton", NUM_PET_ACTION_SLOTS)
