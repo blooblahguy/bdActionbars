@@ -10,7 +10,7 @@ local defaultPadding = 20
 	cfg.blizzardBar = nil
 	cfg.cfg = "bar1"
 	cfg.frameName = "bdActionbars_1"
-	-- cfg.frameVisibility = "[petbattle] hide; [combat][mod][@target,exists,nodead][@vehicle,exists][overridebar][shapeshift][vehicleui][possessbar] hide; show"
+	cfg.frameVisibility = "[petbattle] hide; show"
 	cfg.actionPage = "[bar:6]6;[bar:5]5;[bar:4]4;[bar:3]3;[bar:2]2;[overridebar]14;[shapeshift]13;[vehicleui]12;[possessbar]12;[bonusbar:5]11;[bonusbar:4]10;[bonusbar:3]9;[bonusbar:2]8;[bonusbar:1]7;1"
 	cfg.frameSpawn = {"BOTTOM", UIParent, "BOTTOM", 0, defaultPadding}
 
